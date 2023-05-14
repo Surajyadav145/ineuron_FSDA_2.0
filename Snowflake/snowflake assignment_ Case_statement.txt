@@ -1,0 +1,83 @@
+use warehouse SY_1;
+use database SY_1;
+ drop table SPY_sales_data_final;
+ create or replace table SPY_sales_data_final
+ (order_id VARCHAR2(30), order_date string primary key not null, ship_date string, ship_mode VARCHAR2(20), 
+ customer_name VARCHAR2(30), sigment VARCHAR2(20), state string, country VARCHAR2(50), 
+  market VARCHAR2(20), region VARCHAR2(20),product_id VARCHAR2(50),
+ category VARCHAR(20), sub_category VARCHAR2(20),product_name string, sales number(20), quantity Number(20), discount float,
+  profit float, shipping_cost float, order_priority VARCHAR2(10), year Number(20)
+  );
+  
+  
+ 
+ 
+ select * from SPY_sales_data_final;
+ 
+ 
+ select distinct * from SPY_sales_data_final;
+ 
+ 
+ 
+ alter table SPY_sales_data_final
+ add primary key (ORDER_DATE);
+ select distinct *from SPY_sales_data_final;
+ ----2nd question solution
+update SPY_sales_data_final set ORDER_DATE = to_date(ORDER_DATE, 'YYYY-MM-DD');
+ 
+ --- 3rd question
+  select * , substring (ORDER_ID, 9) as order_extract from SPY_sales_data_final;
+ 
+ 
+ ---command run for 4th question
+ alter table SPY_sales_data_final
+ drop primary key;
+ alter table SPY_sales_data_final
+ add primary key (ORDER_ID);
+ 
+ select distinct * from SPY_sales_data_final;
+ 
+ 
+ 
+ --- command for question 4th
+
+ 
+ select *,
+        case
+        when DISCOUNT > 0 Then 'YES'
+        when DISCOUNT <0 then 'No'
+        else 'No'
+        END as Discount_Flag
+        From SPY_sales_data_final;
+  
+ select distinct * from SPY_sales_data_final;
+ describe table SPY_sales_data_final;
+  --- command for question 5th
+   select*, datediff(days,ORDER_DATE,SHIP_DATE) as Process_days from SPY_sales_data_final;
+ select*,
+        case
+        when PROCESS_DAYS <= 3 then 5
+        when PROCESS_DAYS between 3 and 6 then 4
+        when PROCESS_DAYS between 6 and 10  then 3
+        when PROCESS_DAYS > 10 then 2
+        End as Ratings
+        from SPY_sales_data_final;
+      
+ select * from SPY_sales_data_final;
+ 
+ select *,
+        
+        case
+        when DISCOUNT > 0 Then 'YES'
+        when DISCOUNT <0 then 'No'
+        else 'No'
+        END as Discount_Flag,
+        
+        substring (ORDER_ID, 9) as order_extract,
+        
+        datediff(days,ORDER_DATE,SHIP_DATE) as Process_days
+        
+         
+        from SPY_sales_data_final;
+        
+        select * from SPY_sales_data_final;
